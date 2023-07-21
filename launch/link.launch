@@ -1,0 +1,25 @@
+<launch>
+    <node pkg="RoboticsProject_2" type="OdometryBroadcaster" name="OdometryBroadcaster"/>
+    
+
+
+    <node pkg="tf2_ros" type="static_transform_publisher" name="base" args="0 0 0 0 0 0 1 base_footprint base_link" />
+    <node pkg="tf2_ros" type="static_transform_publisher" name="laser_front" args="0.2 0 0 0 0 0.479425538604203 0.8775825618903728 base_link laser_front" />
+    <node pkg="tf2_ros" type="static_transform_publisher" name="laser_rear" args="-0.2 0 0 0 0 0.867423225594017 0.49757104789172696 base_link laser_rear" />
+
+
+    <node pkg="ira_laser_tools" name="laserscan_multi_merger" type="laserscan_multi_merger">
+        <param name="destination_frame" value="base_link"/>
+        <param name="scan_destination_topic" value="/scan"/>
+        <param name="laserscan_topics" value ="/front/scan /rear/scan" />
+
+        <param name="angle_min" value="-3.14"/>
+        <param name="angle_max" value="3.14"/>
+        <param name="angle_increment" value="0.003067962"/>
+        <param name="time_increment" value="0.0"/>
+        <param name="scan_time" value="0.03"/>
+        <param name="range_min" value="0.28"/>
+        <param name="range_max" value="16.0"/>
+  </node>
+
+</launch>
